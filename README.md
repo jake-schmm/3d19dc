@@ -10,6 +10,7 @@ A one-to-one realtime chat app.
 
 Create the PostgreSQL database (these instructions may need to be adapted for your operating system):
 
+
 ```
 psql
 CREATE DATABASE messenger;
