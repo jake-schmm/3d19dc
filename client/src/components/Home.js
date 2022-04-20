@@ -82,13 +82,11 @@ const Home = ({ user, logout }) => {
   
   const addNewConvo = useCallback(
     (recipientId, message) => {
-      var convos = conversations.slice();
       conversations.forEach((convo) => {
         if (convo.otherUser.id === recipientId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
           convo.id = message.conversationId;
-          setConversations(convos);
         }
       });
       setConversations(conversations);
@@ -110,13 +108,11 @@ const Home = ({ user, logout }) => {
         setConversations((prev) => [newConvo, ...prev]);
       }
     
-      var convos = conversations.slice();
       conversations.forEach((convo) => {
         data.then(result => {
           if (convo.id === result.message.conversationId) {
             convo.messages.push(result.message);
             convo.latestMessageText = result.message.text;
-            setConversations(convos);
           }
           
         });
