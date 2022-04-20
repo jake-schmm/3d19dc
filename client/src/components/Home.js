@@ -68,7 +68,9 @@ const Home = ({ user, logout }) => {
       const data = saveMessage(body);
 
       if (!body.conversationId) {
-        addNewConvo(body.recipientId, data.message);
+        data.then(result => {
+          addNewConvo(body.recipientId, result.message);
+        });
       } else {
         addMessageToConversation(data);
       }
@@ -82,7 +84,7 @@ const Home = ({ user, logout }) => {
   
   const addNewConvo = useCallback(
     (recipientId, message) => {
-      var convos = conversations.slice();
+      const convos = conversations.splice();
       conversations.forEach((convo) => {
         if (convo.otherUser.id === recipientId) {
           convo.messages.push(message);
@@ -106,6 +108,7 @@ const Home = ({ user, logout }) => {
           otherUser: sender,
           messages: [message],
         };
+        console.log("New convo");
         newConvo.latestMessageText = message.text;
         setConversations((prev) => [newConvo, ...prev]);
       }
