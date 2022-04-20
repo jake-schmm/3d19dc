@@ -7,7 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { SidebarContainer } from "../components/Sidebar";
 import { ActiveChat } from "../components/ActiveChat";
 import { SocketContext } from "../context/socket";
+<<<<<<< HEAD
 import { set } from "express/lib/application";
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +25,10 @@ const Home = ({ user, logout }) => {
 
   const [conversations, setConversations] = useState([]);
   const [activeConversation, setActiveConversation] = useState(null);
+<<<<<<< HEAD
+=======
+
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
   const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -63,7 +70,10 @@ const Home = ({ user, logout }) => {
   };
 
   const postMessage = (body) => {
+<<<<<<< HEAD
     
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
     try {
       const data = saveMessage(body);
 
@@ -72,23 +82,37 @@ const Home = ({ user, logout }) => {
       } else {
         addMessageToConversation(data);
       }
+<<<<<<< HEAD
       
       sendMessage(data, body);
       
+=======
+
+      sendMessage(data, body);
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
     } catch (error) {
       console.error(error);
     }
   };
+<<<<<<< HEAD
   
   const addNewConvo = useCallback(
     (recipientId, message) => {
       var convos = conversations.slice();
+=======
+
+  const addNewConvo = useCallback(
+    (recipientId, message) => {
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
       conversations.forEach((convo) => {
         if (convo.otherUser.id === recipientId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
           convo.id = message.conversationId;
+<<<<<<< HEAD
           setConversations(convos);
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
         }
       });
       setConversations(conversations);
@@ -109,6 +133,7 @@ const Home = ({ user, logout }) => {
         newConvo.latestMessageText = message.text;
         setConversations((prev) => [newConvo, ...prev]);
       }
+<<<<<<< HEAD
     
       var convos = conversations.slice();
       conversations.forEach((convo) => {
@@ -121,6 +146,14 @@ const Home = ({ user, logout }) => {
           
         });
         
+=======
+
+      conversations.forEach((convo) => {
+        if (convo.id === message.conversationId) {
+          convo.messages.push(message);
+          convo.latestMessageText = message.text;
+        }
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
       });
       setConversations(conversations);
     },
@@ -180,7 +213,10 @@ const Home = ({ user, logout }) => {
     // when fetching, prevent redirect
     if (user?.isFetching) return;
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
     if (user && user.id) {
       setIsLoggedIn(true);
     } else {
@@ -190,7 +226,10 @@ const Home = ({ user, logout }) => {
     }
   }, [user, history, isLoggedIn]);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
   useEffect(() => {
     const fetchConversations = async () => {
       try {

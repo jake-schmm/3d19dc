@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
@@ -23,7 +23,11 @@ const ActiveChat = ({
   user,
   conversations,
   activeConversation,
+<<<<<<< HEAD
   postMessage
+=======
+  postMessage,
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
 }) => {
   const classes = useStyles();
 
@@ -33,7 +37,10 @@ const ActiveChat = ({
       )
     : {};
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
   };

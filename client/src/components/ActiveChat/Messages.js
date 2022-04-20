@@ -8,6 +8,7 @@ const Messages = (props) => {
 
   return (
     <Box>
+<<<<<<< HEAD
       {messages.sort(function(a,b) {  
         return new Date(a.createdAt) - new Date(b.createdAt);
       }).map((message) => {
@@ -15,6 +16,13 @@ const Messages = (props) => {
         return message.senderId === userId ? (
           <SenderBubble key={message.id} text={message.text} time={time} />
           
+=======
+      {messages.map((message) => {
+        const time = moment(message.createdAt).format('h:mm');
+
+        return message.senderId === userId ? (
+          <SenderBubble key={message.id} text={message.text} time={time} />
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
         ) : (
           <OtherUserBubble
             key={message.id}
