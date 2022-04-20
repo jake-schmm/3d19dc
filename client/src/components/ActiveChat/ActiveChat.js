@@ -23,11 +23,7 @@ const ActiveChat = ({
   user,
   conversations,
   activeConversation,
-<<<<<<< HEAD
   postMessage
-=======
-  postMessage,
->>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
 }) => {
   const classes = useStyles();
 
@@ -37,10 +33,6 @@ const ActiveChat = ({
       )
     : {};
 
-<<<<<<< HEAD
-
-=======
->>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
   };
