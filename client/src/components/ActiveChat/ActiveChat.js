@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
@@ -32,6 +32,10 @@ const ActiveChat = ({
         (conversation) => conversation.otherUser.username === activeConversation
       )
     : {};
+
+  useEffect(() => {
+    console.log(activeConversation);
+  }, []) 
 
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
