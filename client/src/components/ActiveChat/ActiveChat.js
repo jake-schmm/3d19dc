@@ -23,7 +23,11 @@ const ActiveChat = ({
   user,
   conversations,
   activeConversation,
+<<<<<<< HEAD
   postMessage
+=======
+  postMessage,
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
 }) => {
   const classes = useStyles();
 
@@ -33,13 +37,14 @@ const ActiveChat = ({
       )
     : {};
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> aac961c9dde0f2b1c1be0a2dd8303237ef1a7760
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
   };
 
-  const sortedMessages = (messages) => {
-    return messages.sort(function(a,b) { return new Date(a.createdAt) - new Date(b.createdAt)});
-  }
   return (
     <Box className={classes.root}>
       {isConversation(conversation) && conversation.otherUser && (
@@ -52,7 +57,7 @@ const ActiveChat = ({
             {user && (
               <>
                 <Messages
-                  messages={sortedMessages(conversation.messages)}
+                  messages={conversation.messages}
                   otherUser={conversation.otherUser}
                   userId={user.id}
                 />
