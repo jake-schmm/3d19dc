@@ -38,9 +38,6 @@ const ActiveChat = ({
     return obj !== {} && obj !== undefined;
   };
 
-  const sortedMessages = (messages) => {
-    return messages.sort(function(a,b) { return new Date(a.createdAt) - new Date(b.createdAt)});
-  }
   return (
     <Box className={classes.root}>
       {isConversation(conversation) && conversation.otherUser && (
@@ -53,7 +50,7 @@ const ActiveChat = ({
             {user && (
               <>
                 <Messages
-                  messages={sortedMessages(conversation.messages)}
+                  messages={conversation.messages}
                   otherUser={conversation.otherUser}
                   userId={user.id}
                 />
