@@ -23,7 +23,6 @@ const ActiveChat = ({
   user,
   conversations,
   activeConversation,
-<<<<<<< HEAD
   postMessage
 
 }) => {
