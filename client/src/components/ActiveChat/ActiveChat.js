@@ -33,9 +33,6 @@ const ActiveChat = ({
       )
     : {};
 
-  useEffect(() => {
-    console.log(activeConversation);
-  }, []) 
 
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
