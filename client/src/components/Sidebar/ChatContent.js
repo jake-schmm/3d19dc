@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   right: {
     position: "absolute",
-    left: "55%",
+    left: "8%",
     transform: "translate(0%, -100%)",
     fontSize: 14,
     backgroundColor: "#6495ed",
