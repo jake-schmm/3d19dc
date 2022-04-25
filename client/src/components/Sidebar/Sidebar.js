@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Search, Chat, CurrentUser } from './index';
@@ -24,9 +24,12 @@ const Sidebar = ({
   conversations = [],
   user,
   setActiveChat,
+  activeConvo
 }) => {
   const classes = useStyles();
 
+  const [childData, setChildData] = useState('');
+  
   return (
     <Box className={classes.root}>
       <CurrentUser user={user} />
@@ -38,10 +41,13 @@ const Sidebar = ({
         )
         .map((conversation) => {
           return (
-            <Chat
+            <Chat 
               conversation={conversation}
               key={conversation.otherUser.username}
               setActiveChat={setActiveChat}
+              activeConvo={childData}
+              passChildData={setChildData}
+              
             />
           );
         })}

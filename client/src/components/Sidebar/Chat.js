@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { BadgeAvatar, ChatContent } from '../Sidebar';
 import { makeStyles } from '@material-ui/core/styles';
+import { process_params } from 'express/lib/router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,14 +18,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Chat = ({ conversation, setActiveChat }) => {
+const Chat = ({ conversation, setActiveChat, passChildData, activeConvo}) => {
   const classes = useStyles();
   const { otherUser } = conversation;
 
+  const data = conversation.id; 
+
+
   const handleClick = async (conversation) => {
     await setActiveChat(conversation.otherUser.username);
+    
+    passDataToSidebar(conversation.id);
   };
 
+  const passDataToSidebar = (data) => {
+    passChildData(data);
+  }
+
+  
   return (
     <Box onClick={() => handleClick(conversation)} className={classes.root}>
       <BadgeAvatar
@@ -33,7 +44,7 @@ const Chat = ({ conversation, setActiveChat }) => {
         online={otherUser.online}
         sidebar={true}
       />
-      <ChatContent conversation={conversation} />
+      <ChatContent conversation={conversation} activeConvo = {activeConvo}/>
     </Box>
   );
 };
