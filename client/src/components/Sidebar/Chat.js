@@ -17,13 +17,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Chat = ({ conversation, setActiveChat }) => {
+const Chat = ({ conversation, setActiveChat, passChildData, activeConvo }) => {
   const classes = useStyles();
   const { otherUser } = conversation;
 
   const handleClick = async (conversation) => {
     await setActiveChat(conversation.otherUser.username);
+    
+    passDataToSidebar(conversation.id);
   };
+
+  const passDataToSidebar = (data) => {
+    passChildData(data);
+  }
 
   return (
     <Box onClick={() => handleClick(conversation)} className={classes.root}>
@@ -33,7 +39,7 @@ const Chat = ({ conversation, setActiveChat }) => {
         online={otherUser.online}
         sidebar={true}
       />
-      <ChatContent conversation={conversation} />
+      <ChatContent conversation={conversation} activeConvo = {activeConvo}/>
     </Box>
   );
 };
