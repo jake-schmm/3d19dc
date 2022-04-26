@@ -30,48 +30,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const ChatContent = ({ conversation, activeConvo }) => {
+const ChatContent = ({ conversation, count }) => {
   const classes = useStyles();
 
   const { otherUser } = conversation;
   const latestMessageText = conversation.id && conversation.latestMessageText;
 
-  const [count, setCount] = useState(0);
-
-  var numUnreadMessages = 0;
-  conversation.messages.forEach((message) => {
-    if(message.senderId == otherUser.id) {
-      numUnreadMessages++; 
-    }
-  });
-
-  useEffect(() => {
-    setCount(numUnreadMessages);
-  }, [])
-
-
-  const firstUpdate = useRef(true);
-  useEffect(() => {
-    if (firstUpdate.current) { 
-       firstUpdate.current = false;
-    }
-    else {
-      // if conversation is not currently open and a message is sent by other user, add to count
-      if(activeConvo != conversation.id) {
-        if(conversation.messages[conversation.messages.length-1].senderId == otherUser.id) {
-          setCount(count + 1);
-      }
-        }
-    }
-  }, [latestMessageText])
-
-  const handleClick = () => {
-    setCount(0);
-  };
-
 
   return (
-    <Box onClick={() => handleClick()} className={classes.root}>
+    <Box className={classes.root}>
     <Box>
       <Typography className={classes.username}>
         {otherUser.username}
