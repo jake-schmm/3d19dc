@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Search, Chat, CurrentUser } from './index';
@@ -27,7 +27,14 @@ const Sidebar = ({
 }) => {
   const classes = useStyles();
 
-  const [childData, setChildData] = useState('');
+  //const [childData, setChildData] = useState('');
+  const childDataRef = useRef();
+
+  const updateChildData = (data) => {
+    childDataRef.current = data;
+  }
+  
+
 
   return (
     <Box className={classes.root}>
@@ -44,8 +51,8 @@ const Sidebar = ({
               conversation={conversation}
               key={conversation.otherUser.username}
               setActiveChat={setActiveChat}
-              activeConvo={childData}
-              passChildData={setChildData}
+              activeConvo={childDataRef}
+              passChildData={updateChildData}
             />
           );
         })}
