@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
@@ -24,7 +24,6 @@ const ActiveChat = ({
   conversations,
   activeConversation,
   postMessage
-
 }) => {
   const classes = useStyles();
 
@@ -34,10 +33,13 @@ const ActiveChat = ({
       )
     : {};
 
-
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
   };
+
+  const sortedMessages = (messages) => {
+    return messages.sort(function(a,b) { return new Date(a.createdAt) - new Date(b.createdAt)});
+  }
 
   return (
     <Box className={classes.root}>
@@ -51,7 +53,7 @@ const ActiveChat = ({
             {user && (
               <>
                 <Messages
-                  messages={conversation.messages}
+                  messages={sortedMessages(conversation.messages)}
                   otherUser={conversation.otherUser}
                   userId={user.id}
                 />
