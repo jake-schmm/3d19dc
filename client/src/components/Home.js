@@ -25,6 +25,9 @@ const Home = ({ user, logout }) => {
   const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+ 
+  
+  
   const addSearchedUsers = (users) => {
     const currentUsers = {};
 
@@ -62,13 +65,14 @@ const Home = ({ user, logout }) => {
     });
   };
 
-  const postMessage = (body) => {
+  const postMessage = async (body) => {
     
     try {
       const data = saveMessage(body);
 
       if (!body.conversationId) {
-        addNewConvo(body.recipientId, data.message);
+        const result = await data;
+        addNewConvo(body.recipientId, result.message);
       } else {
         addMessageToConversation(data);
       }
@@ -82,20 +86,25 @@ const Home = ({ user, logout }) => {
   
   const addNewConvo = useCallback(
     (recipientId, message) => {
-      conversations.forEach((convo) => {
+      
+      setConversations((prev) => prev.map((convo) => {
         if (convo.otherUser.id === recipientId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
-          convo.id = message.conversationId;
-        }
-      });
-      setConversations(conversations);
+          const convoCopy = {...convo, messages: [...convo.messages]}
+          convoCopy.messages.push(message);
+          convoCopy.latestMessageText = message.text;
+          convoCopy.id = message.conversationId;
+          return convoCopy;
+
+      } else {
+        return convo;
+      }
+      }), );
     },
     [setConversations, conversations],
   );
 
   const addMessageToConversation = useCallback(
-    (data) => {
+    async(data) => {
       // if sender isn't null, that means the message needs to be put in a brand new convo
       const { message, sender = null } = data;
       if (sender !== null) {
@@ -108,24 +117,46 @@ const Home = ({ user, logout }) => {
         setConversations((prev) => [newConvo, ...prev]);
       }
     
+      const result = await data;
+      setConversations((prev) => prev.map((convo) => {
+        if (convo.id === result.message.conversationId) {
+          const convoCopy = {...convo, messages: [...convo.messages]}
+          convoCopy.messages.push(result.message);
+          convoCopy.latestMessageText = result.message.text;
+          return convoCopy;
+        }
+        else {
+          return convo;
+        }
+      }),
+      );
+      
+      //setConversations(conversations);
+      /*
       conversations.forEach((convo) => {
-        data.then(result => {
           if (convo.id === result.message.conversationId) {
-            convo.messages.push(result.message);
-            convo.latestMessageText = result.message.text;
+            const convoCopy = {...convo, messages: [...convo.messages]}
+            convoCopy.messages.push(result.message);
+            convoCopy.latestMessageText = result.message.text;
+            
+            var index = conversations.indexOf(convo);
+            var convos = conversations.splice(index, 1, convoCopy);
+            setConversations(convos);
           }
-          
-        });
         
       });
       setConversations(conversations);
+      */
     },
     [setConversations, conversations],
   );
 
+  
+
   const setActiveChat = (username) => {
     setActiveConversation(username);
   };
+
 
   const addOnlineUser = useCallback((id) => {
     setConversations((prev) =>
@@ -173,6 +204,11 @@ const Home = ({ user, logout }) => {
   }, [addMessageToConversation, addOnlineUser, removeOfflineUser, socket]);
 
   useEffect(() => {
+   
+   
+  }, [activeConversation]);
+
+  useEffect(() => {
     // when fetching, prevent redirect
     if (user?.isFetching) return;
 
@@ -190,6 +226,9 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
+        data.map((convo) => {
+          convo.messages = convo.messages.sort(function(a,b) { return new Date(a.createdAt) - new Date(b.createdAt)});
+        });
         setConversations(data);
       } catch (error) {
         console.error(error);
