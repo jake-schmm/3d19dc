@@ -10,7 +10,6 @@ from . import utils
 
 
 class User(utils.CustomModel):
-    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     username = models.TextField(null=False, unique=True)
     email = models.TextField(null=False, unique=True)
     photoUrl = models.TextField()
