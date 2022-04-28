@@ -38,7 +38,7 @@ const ChatContent = ({ conversation, activeConvo }) => {
 
   const [count, setCount] = useState(0);
 
-  var numUnreadMessages = 0;
+  let numUnreadMessages = 0;
   conversation.messages.forEach((message) => {
     if(message.senderId == otherUser.id) {
       numUnreadMessages++; 
